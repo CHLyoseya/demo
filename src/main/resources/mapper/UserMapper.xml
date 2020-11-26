@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hector.demo.mapper.UserMapper">
+
+    <select id="testList" resultType="com.hector.demo.pojo.UserDO">
+        select * from test
+    </select>
+
+    <select id="testPro" parameterType="com.hector.demo.pojo.DistributionDTO" resultType="com.hector.demo.pojo.DistributionDO">
+        select provider,proportion from distribution_rule where encrypt_type = #{dto.encryptType} and type = #{dto.type}
+    </select>
+
+    <update id="updateList" parameterType="com.hector.demo.pojo.DistributionDTO" >
+        update distribution_rule set proportion = #{dto.proportion}
+        where encrypt_type = #{dto.encryptType} and type =  #{dto.type} and provider = #{dto.provider}
+    </update>
+    <insert id="insertForName" parameterType="com.hector.demo.pojo.UserDO">
+        insert into user(name,password)
+        values
+        <foreach collection="dto.name" index="index" item="n">
+            (n,
+        </foreach>
+        <foreach collection="dto.password" index="index" item="p">
+            p)
+        </foreach>
+    </insert>
+</mapper>
